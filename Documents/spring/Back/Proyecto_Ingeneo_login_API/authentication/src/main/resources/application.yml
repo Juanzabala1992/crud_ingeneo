@@ -1,0 +1,25 @@
+spring:
+    datasource:
+      url: jdbc:postgresql://localhost:5432/authentication
+      username: postgres
+      password: admin
+      driver-class-name: org.postgresql.Driver
+    jpa:
+      hibernate:
+        ddl-auto: update
+      show-sql: true
+      properties:
+          hibernate:
+            format_sql: true
+      database: postgresql
+      database-plataform: org.hibernate.dialect.PostgreSQLDialect
+
+
+server:
+  port: 8091
+  address: localhost
+
+logging:
+  level:
+    root: INFO
+    org.springframework.security: DEBUG
