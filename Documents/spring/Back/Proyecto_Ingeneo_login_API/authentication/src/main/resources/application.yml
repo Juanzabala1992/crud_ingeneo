@@ -1,9 +1,13 @@
 spring:
     datasource:
-      url: jdbc:postgresql://localhost:5432/authentication
-      username: postgres
-      password: admin
+      url: jdbc:postgresql://factech-operation-management.ckea3ypyg3jg.eu-west-1.rds.amazonaws.com:5432/operations_db
+      username: operations_admin
+      password: ==+Op2rationSAdm3N==+
       driver-class-name: org.postgresql.Driver
+      ##url: jdbc:postgresql://localhost:5432/authentication
+      ##username: postgres
+      ##password: admin
+      ##driver-class-name: org.postgresql.Driver
     jpa:
       hibernate:
         ddl-auto: update
@@ -14,9 +18,25 @@ spring:
       database: postgresql
       database-plataform: org.hibernate.dialect.PostgreSQLDialect
 
+    main:
+      allow-bean-definition-overriding: true
+
+    mail:
+      host: smtp.gmail.com
+      port: 587
+      username: factech4dm1n@gmail.com
+      password: llqvijrhhhrtqnif
+      properties:
+        mail:
+          smtp:
+            auth: true
+            starttls:
+              enable: true
+
 
 server:
-  port: 8091
+  port: 5000
+  ##port: 8091
   address: localhost
 
 logging:

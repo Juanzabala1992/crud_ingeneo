@@ -1,20 +1,26 @@
 package com.login.authentication.model;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
 
 
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "schedule")
-public class ScheduleModel {
+public class ScheduleModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,25 +47,21 @@ public class ScheduleModel {
     //@ValidTaskDTO
     private String numero_de_documento;
 
-    @NotEmpty
-    @NotNull(message = "Actividades es obligario")
-    @Column(nullable = false)
-    private String actividades;
+    @OneToMany(mappedBy = "scheduleModel")
+    List<ActividadesModel> actividades;
 
-    @NotEmpty
-    @NotNull(message = "Fecha inicio es obligaria")
-    @Column(nullable = false)
-    private String fecha_inicio;
+    @OneToMany(mappedBy = "scheduleModel")
+    List<ActividadesExtrasModel> actividades_extras;
 
-    @NotEmpty
-    @NotNull(message = "Fecha fin es obligaria")
+    @NotNull(message = "Fecha inicial no puede estar vacía")
     @Column(nullable = false)
-    private String fecha_fin;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate fecha_inicio;
 
-    @NotEmpty
-    @NotNull(message = "Horas es obligaria")
+    @NotNull(message = "Fecha final no puede estar vacía")
     @Column(nullable = false)
-    private String horas_actividad;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate fecha_fin;
 
     @NotEmpty
     @NotNull(message = "Total horas es obligatorio")
@@ -77,100 +79,6 @@ public class ScheduleModel {
     @Column(nullable = false)
     private String responsable_cliente;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getNumero_de_documento() {
-        return numero_de_documento;
-    }
-
-    public void setNumero_de_documento(String numero_de_documento) {
-        this.numero_de_documento = numero_de_documento;
-    }
-
-    public String getActividades() {
-        return actividades;
-    }
-
-    public void setActividades(String actividades) {
-        this.actividades = actividades;
-    }
-
-    public String getFecha_inicio() {
-        return fecha_inicio;
-    }
-
-    public void setFecha_inicio(String fecha_inicio) {
-        this.fecha_inicio = fecha_inicio;
-    }
-
-    public String getFecha_fin() {
-        return fecha_fin;
-    }
-
-    public void setFecha_fin(String fecha_fin) {
-        this.fecha_fin = fecha_fin;
-    }
-
-    public String getHoras_actividad() {
-        return horas_actividad;
-    }
-
-    public void setHoras_actividad(String horas_actividad) {
-        this.horas_actividad = horas_actividad;
-    }
-
-    public String getTotal_horas() {
-        return total_horas;
-    }
-
-    public void setTotal_horas(String total_horas) {
-        this.total_horas = total_horas;
-    }
-
-    public String getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(String cliente) {
-        this.cliente = cliente;
-    }
-
-    public String getResponsable_cliente() {
-        return responsable_cliente;
-    }
-
-    public String getIdSch() {
-        return idSch;
-    }
-
-    public void setIdSch(String idSch) {
-        this.idSch = idSch;
-    }
-
-    public String getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(String idUser) {
-        this.idUser = idUser;
-    }
-
-    public void setResponsable_cliente(String responsable_cliente) {
-        this.responsable_cliente = responsable_cliente;
-    }
+    private String observaciones;
 }
 

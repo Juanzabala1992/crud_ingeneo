@@ -1,25 +1,21 @@
 package com.logisticcompany.logisticcompany.controller;
-        import java.util.List;
-        import java.util.Optional;
-        import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
+import com.logisticcompany.logisticcompany.model.TruksModel;
+import com.logisticcompany.logisticcompany.repository.TruksRepository;
+import com.logisticcompany.logisticcompany.service.TruksService;
 
-        import com.logisticcompany.logisticcompany.model.TruksModel;
-        import com.logisticcompany.logisticcompany.repository.TruksRepository;
-        import com.logisticcompany.logisticcompany.service.TruksService;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.http.ResponseEntity;
-        import org.springframework.security.access.prepost.PreAuthorize;
-        import org.springframework.validation.BindingResult;
-        import org.springframework.web.bind.annotation.CrossOrigin;
-        import org.springframework.web.bind.annotation.GetMapping;
-        import org.springframework.web.bind.annotation.PathVariable;
-        import org.springframework.web.bind.annotation.PostMapping;
-        import org.springframework.web.bind.annotation.RequestBody;
-        import org.springframework.web.bind.annotation.RequestMapping;
-        import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
 
 @RestController
-@RequestMapping("api/v1/")
+@RequestMapping("api/v1/auth")
 @CrossOrigin(origins="http://localhost:4200/")
 public class LogisticsController {
 
@@ -29,11 +25,16 @@ public class LogisticsController {
     @Autowired
     private TruksService truksService;
 
-    @PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping("/guias/all")
     public ResponseEntity <List<TruksModel>> listarTodasLasGuias(@Valid BindingResult result){
         List<TruksModel> all = repositorio.findAll();
         return truksService.getAllData(all);
+    }
+
+    @GetMapping("/hello")
+    @PreAuthorize("hasRole('client_admin')")
+    public String hello() {
+        return "Hello from Spring boot & Keycloak";
     }
 
     @GetMapping("/guia/{id}")

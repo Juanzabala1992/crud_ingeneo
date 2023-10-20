@@ -17,7 +17,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("api/v1/auth")
-@CrossOrigin(origins="http://localhost:4200/")
+@CrossOrigin(origins = "http://operations-managements-frontend-bucket.s3-website-eu-west-1.amazonaws.com/")
 public class ScheduleController {
 
     @Autowired

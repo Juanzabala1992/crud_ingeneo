@@ -1,17 +1,14 @@
 package com.logisticcompany.logisticcompany.model;
-import com.logisticcompany.logisticcompany.validations.ValidTaskDTO;
+import lombok.Builder;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.persistence.GenerationType;
+
 
 @Entity
+@Builder
 @Table(name = "truks_logistics")
 public class TruksModel {
 
@@ -44,8 +41,8 @@ public class TruksModel {
     private String bodega_entega;
 
     @NotEmpty
-    @NotNull(message = "Numero de documento es obligario")
-    @Column(nullable = false, unique = true)
+    @NotNull(message = "Precion de envio es obligatorio")
+    @Column(nullable = false)
     private String precio_envio;
 
 
@@ -65,7 +62,7 @@ public class TruksModel {
     }
 
     public TruksModel(Long id, @NotBlank String tipo_producto, String cantidad_producto, @NotBlank String fecha_ingreso,
-                   @NotBlank String fecha_entrega, String bodega_entega, String precio_envio, String placa_vehiculo, String numero_guia) {
+                      @NotBlank String fecha_entrega, String bodega_entega, String precio_envio, String placa_vehiculo, String numero_guia) {
         super();
         this.id = id;
         this.tipo_producto = tipo_producto;

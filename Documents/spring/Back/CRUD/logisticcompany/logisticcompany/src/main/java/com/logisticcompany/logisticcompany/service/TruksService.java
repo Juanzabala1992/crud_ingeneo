@@ -18,7 +18,6 @@ public class TruksService {
     @Autowired
     private TruksRepository repositorio;
 
-
     public ResponseEntity<List<TruksModel>> getAllData(List<TruksModel> lista){
         if(lista.isEmpty() || lista == null) {
             throw new ApiRequestException("No hay usuarios en la base");
@@ -47,7 +46,7 @@ public class TruksService {
         }else {
             String numero_guia = truksData.getGuide();
             Optional<TruksModel> truk = repositorio.findByGuide(numero_guia);
-            if(truk == null) {
+            if(truk.isEmpty()) {
                 TruksModel trukRepo = repositorio.save(truksData);
                 return ResponseEntity.status(HttpStatus.OK).body(truksData);
             }else {
